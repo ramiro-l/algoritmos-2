@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "string_view": "c",
+        "array_helpers.h": "c",
+        "weather_utils.h": "c",
+        "player.h": "c"
+    }
+}

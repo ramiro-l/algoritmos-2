@@ -1,0 +1,25 @@
+{
+    "files.associations": {
+        "*.tcc": "c",
+        "deque": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "sort_helpers.h": "c",
+        "stdbool.h": "c",
+        "string_view": "c",
+        "array": "c",
+        "memory": "c",
+        "optional": "c",
+        "fstream": "c",
+        "istream": "c",
+        "ostream": "c",
+        "sstream": "c",
+        "streambuf": "c",
+        "functional": "c",
+        "tuple": "c",
+        "random": "c"
+    },
+    "commentTranslate.targetLanguage": "es",
+    "commentTranslate.hover.enabled": true
+}
