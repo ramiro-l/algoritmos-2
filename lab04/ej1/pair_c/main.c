@@ -4,7 +4,7 @@
 
 static
 void show_pair(pair_t p) {
-    printf("(%d, %d)\n", p->fst, p->snd);
+    printf("(%d, %d)\n", pair_first(p), pair_second(p));
 }
 
 int main(void) {
@@ -28,6 +28,5 @@ int main(void) {
 
 /*
     ¿La implementación logra encapsulamiento?
-    No lo logra porque si nos dan la especificacion, podemos saber como estan implementados los pares, en este caso son dos int. 
-    Ademas podemos ver como en la funcion show_pair, utiuliza que p es un puntero, esto esta mal porque no encapsula.
+    Si lo logra porquee solamente se pueda acceder y/o modificar su estado a través de las operaciones provistas
 */

@@ -25,3 +25,9 @@ int main(void) {
     q = pair_destroy(q);
     return EXIT_SUCCESS;
 }
+
+/*
+    ¿La implementación logra encapsulamiento?
+    No lo logra porque si nos dan la especificacion, podemos saber como estan implementados los pares, en este caso son dos int. 
+    Ademas podemos ver como en la funcion show_pair, utiuliza que p es una tupla, esto esta mal porque no encapsula.
+*/

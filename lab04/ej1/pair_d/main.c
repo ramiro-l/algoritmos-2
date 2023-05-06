@@ -25,3 +25,8 @@ int main(void) {
     return EXIT_SUCCESS;
 }
 
+/*
+    ¿Qué diferencia hay entre la especificación anterior y la que se encuentra en el pair.h de la carpeta pair_d?
+    La diferencia es que a los valores del par los define como elem, esto es mejor porque aseguramos que si se usa
+    el tipo elem para los pares sabemos que siempre van  estar bien definidos.
+*/
