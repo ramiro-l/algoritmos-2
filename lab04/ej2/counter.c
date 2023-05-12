@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
 
@@ -13,6 +14,11 @@ counter counter_init(void)
 {
     counter res = NULL;
     res = malloc(sizeof(struct _counter));
+    if (res == NULL)
+    {
+        fprintf(stderr, "Invalid array.\n");
+        exit(EXIT_FAILURE);
+    }
     res->count = 0u;
     assert(counter_is_init(res));
     return res;
@@ -38,6 +44,11 @@ counter counter_copy(counter c)
 {
     counter res = NULL;
     res = malloc(sizeof(struct _counter));
+    if (res == NULL)
+    {
+        printf("Not enouht memory \n");
+        exit(EXIT_FAILURE);
+    }
     res->count = c->count;
     return res;
 }

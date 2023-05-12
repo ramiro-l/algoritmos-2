@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include "pair.h"
 
-struct s_pair_t {
+struct s_pair_t
+{
     int fst;
     int snd;
 };
@@ -11,6 +12,11 @@ pair_t pair_new(int x, int y)
 {
     pair_t res = NULL;
     res = malloc(sizeof(struct s_pair_t));
+    if (res == NULL)
+    {
+        printf("Not enouht memory \n");
+        exit(EXIT_FAILURE);
+    }
     res->fst = x;
     res->snd = y;
     return res;
@@ -29,14 +35,12 @@ int pair_second(pair_t p)
 pair_t pair_swapped(pair_t p)
 {
     pair_t res = NULL;
-    res = malloc(sizeof(struct s_pair_t));
-    res->fst = p->snd;
-    res->snd = p->fst;
+    res = pair_new(p->snd, p->fst);
     return res;
 }
 
 pair_t pair_destroy(pair_t p)
 {
     free(p);
-    return p;
+    return NULL;
 }

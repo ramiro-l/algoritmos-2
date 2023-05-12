@@ -21,6 +21,11 @@ list addl(list l, list_elem e)
 {
     list p = NULL;
     p = malloc(sizeof(struct _list));
+    if (p == NULL)
+    {
+        printf("Not enouht memory \n");
+        exit(EXIT_FAILURE);
+    }
     p->elem = e;
     p->next = l;
     l = p;
@@ -52,8 +57,13 @@ list tail(list l)
 
 list addr(list l, list_elem e)
 {
-    list q, p = l;
+    list q = NULL, p = l;
     q = malloc(sizeof(struct _list));
+    if (q == NULL)
+    {
+        printf("Not enouht memory \n");
+        exit(EXIT_FAILURE);
+    }
     q->elem = e;
     q->next = NULL;
     if (!is_empty(l))
@@ -86,7 +96,7 @@ unsigned int length(list l)
 
 list concat(list l1, list l2)
 {
-    list p;
+    list p = NULL;
     if (!is_empty(l1))
     {
         p = l1;
@@ -121,7 +131,7 @@ list_elem index(list l, unsigned int n)
 list take(list l, unsigned int n)
 {
     unsigned int i = 0u;
-    list q;
+    list q = NULL;
     list p = l;
     while (p != NULL)
     {
@@ -143,7 +153,7 @@ list take(list l, unsigned int n)
 list drop(list l, unsigned int n)
 {
     unsigned int i = 0u;
-    list q;
+    list q = NULL;
     list p = l;
     while (p != NULL)
     {
@@ -164,26 +174,35 @@ list drop(list l, unsigned int n)
 
 list copy_list(list l)
 {
-    list l2, p, q, h;
+    list l2 = NULL, p = NULL, q = NULL, h = NULL;
     if (!is_empty(l))
     {
         p = l; // Inicializamos p,  para que sea igual a l
 
         // Agregamos el primer elemento porque sabemos que la lista es no vacia.
         q = malloc(sizeof(struct _list));
+        if (q == NULL)
+        {
+            printf("Not enouht memory \n");
+            exit(EXIT_FAILURE);
+        }
         q->elem = p->elem;
         q->next = NULL;
 
         l2 = q;      // Asignamos a la copia la direccion del primer elemento
         p = p->next; // Avanzamos uno porque ya lo agregamos.
 
-        
         // Idea: l2 -> q -> h -> q -> h -> q ... -> NULL
         while (p != NULL)
         {
             if (q->next == NULL) // Agregamos h como el siguiente de la lista
             {
                 h = malloc(sizeof(struct _list));
+                if (h == NULL)
+                {
+                    printf("Not enouht memory \n");
+                    exit(EXIT_FAILURE);
+                }
                 h->elem = p->elem;
                 h->next = NULL;
                 q->next = h; // Al anterior le ponemos la direccion del nuevo elemento
@@ -191,6 +210,11 @@ list copy_list(list l)
             else if (h->next == NULL) // Agregamos q como el siguiente de la lista
             {
                 q = malloc(sizeof(struct _list));
+                if (q == NULL)
+                {
+                    printf("Not enouht memory \n");
+                    exit(EXIT_FAILURE);
+                }
                 q->elem = p->elem;
                 q->next = NULL;
                 h->next = q; // Al anterior le ponemos la direccion del nuevo elemento
@@ -204,7 +228,6 @@ list copy_list(list l)
         l2 = NULL;
     }
 
-    
     return l2;
 }
 
@@ -212,7 +235,7 @@ list copy_list(list l)
 
 list destroy_list(list l)
 {
-    list p, q;
+    list p = NULL, q = NULL;
     p = l;
     while (p != NULL)
     {
@@ -220,5 +243,5 @@ list destroy_list(list l)
         p = p->next;
         free(q);
     }
-    return l;
+    return NULL;
 }

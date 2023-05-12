@@ -1,6 +1,7 @@
 /* First, the standard lib includes, alphabetically ordered */
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 /* Then, this project's includes, alphabetically ordered */
 #include "counter.h"
@@ -65,9 +66,10 @@ bool matching_parentheses(FILE *file)
             counter_dec(c);
         }
     }
+    bool is_init = counter_is_init(c); 
     counter_destroy(c);
     fclose(file);
-    return (balanced && counter_is_init(c));
+    return (balanced && is_init);
 }
 
 int main(int argc, char *argv[])
