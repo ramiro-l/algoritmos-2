@@ -3,10 +3,10 @@
 
 #include "strfuncs.h"
 
-
-int main(void) {
-    char *some_str="h.o.l.a m.u.n.d.o.!";
-    char *filtered=NULL;
+int main(void)
+{
+    char *some_str = "h.o.l.a m.u.n.d.o.!";
+    char *filtered = NULL;
 
     filtered = string_filter(some_str, '.');
     printf("original: '%s' (%lu)\n"
@@ -19,4 +19,3 @@ int main(void) {
 
     return EXIT_SUCCESS;
 }
-

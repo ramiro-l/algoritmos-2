@@ -1,8 +1,8 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic -std=c99 -g
-SOURCES = stack.c hanoi.c main.c
+SOURCES = strfuncs.c main.c
 OBJECTS = $(SOURCES:.c=.o)
-TARGET = solve-hanoi
+TARGET = main
 
 .PHONY: clean
 
@@ -18,4 +18,4 @@ clean:
 	$(RM) $(OBJECTS) $(TARGET)
 
 valgrind: $(TARGET)
-	valgrind --leak-check=full -s ./$(TARGET) 10
+	valgrind --leak-check=full -s ./$(TARGET)

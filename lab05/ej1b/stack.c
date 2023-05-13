@@ -7,6 +7,7 @@ struct _s_stack
 {
   stack_elem elem;
   struct _s_stack *next;
+  unsigned int index;
 };
 
 stack stack_empty()
@@ -27,6 +28,8 @@ stack stack_push(stack s, stack_elem e)
 
   p->elem = e;
   p->next = s;
+  p->index = s == NULL ? 0 : s->index + 1;
+
   s = p;
   return s;
 }
@@ -44,13 +47,9 @@ stack stack_pop(stack s)
 
 unsigned int stack_size(stack s)
 {
-  unsigned int i = 0u;
-  while (s != NULL)
-  {
-    s = s->next;
-    i++;
-  }
-  return i;
+  unsigned int res;
+  res = s == NULL ? 0 : s->index + 1;
+  return res;
 }
 
 stack_elem stack_top(stack s)
