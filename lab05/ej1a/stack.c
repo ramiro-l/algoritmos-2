@@ -9,6 +9,11 @@ struct _s_stack
   struct _s_stack *next;
 };
 
+bool inv_rep(stack s)
+{
+  return (s != NULL);
+}
+
 stack stack_empty()
 {
   stack p = NULL;
@@ -33,12 +38,11 @@ stack stack_push(stack s, stack_elem e)
 
 stack stack_pop(stack s)
 {
-  if (!stack_is_empty(s))
-  {
-    stack p = s;
-    s = s->next;
-    free(p);
-  }
+  assert(inv_rep(s));
+  stack p = s;
+  s = s->next;
+  free(p);
+  p = NULL;
   return s;
 }
 
@@ -55,7 +59,7 @@ unsigned int stack_size(stack s)
 
 stack_elem stack_top(stack s)
 {
-  assert(!stack_is_empty(s));
+  assert(inv_rep(s));
   stack_elem e = s->elem;
   return e;
 }
@@ -71,7 +75,7 @@ stack_elem *stack_to_array(stack s)
   stack_elem *array = NULL;
   if (length != 0)
   {
-    array = malloc(sizeof(stack_elem) * length);
+    array = calloc(length, sizeof(stack_elem));
   }
 
   if (array == NULL && length > 0)
@@ -85,12 +89,6 @@ stack_elem *stack_to_array(stack s)
     s = s->next;
   }
   return array;
-}
-
-stack_elem *stack_array_destroy(stack_elem *a)
-{
-  free(a);
-  return NULL;
 }
 
 stack stack_destroy(stack s)

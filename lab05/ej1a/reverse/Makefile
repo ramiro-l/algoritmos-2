@@ -10,9 +10,11 @@ all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) -o $(TARGET) $(OBJECTS) $(LFLAGS) $(LIBS)
+	gcc -Wall -Werror -Wextra -pedantic -std=c99 ../stack.o ../test.c -o test
 
 .c.o:
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJECTS) $(TARGET)
+	$(RM) ./test

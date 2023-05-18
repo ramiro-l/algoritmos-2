@@ -70,8 +70,6 @@ bool stack_is_empty(stack s);
 */
 stack_elem *stack_to_array(stack s);
 
-stack_elem *stack_array_destroy(stack_elem *a);
-
 /**
 * @brief Destroys the stack
 * @param s A stack

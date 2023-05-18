@@ -1,25 +1,51 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include "stack.h"
 
 struct _s_stack
 {
-  stack_elem elem;
-  struct _s_stack *next;
-  unsigned int index;
+  struct stack_node *fst;
+  unsigned int size;
 };
+
+struct stack_node
+{
+  stack_elem elem;
+  struct stack_node *next;
+};
+
+bool inv_rep(stack s)
+{
+  struct stack_node *aux = NULL;
+  bool b = (s != NULL);
+  if (b)
+  {
+    aux = s->fst;
+    for (size_t i = 0; i < s->size; i++)
+    {
+      aux = aux->next;
+    }
+    b = (aux == NULL);
+  }
+
+  return b;
+}
 
 stack stack_empty()
 {
-  stack p = NULL;
+  stack p = malloc(sizeof(struct _s_stack));
+  p->size = 0;
+  p->fst = NULL;
   return p;
 }
 
 stack stack_push(stack s, stack_elem e)
 {
-  stack p = NULL;
-  p = malloc(sizeof(struct _s_stack));
+  assert(inv_rep(s));
+  struct stack_node *p = NULL;
+  p = malloc(sizeof(struct stack_node));
   if (p == NULL)
   {
     printf("Not enouht memory \n");
@@ -27,50 +53,51 @@ stack stack_push(stack s, stack_elem e)
   }
 
   p->elem = e;
-  p->next = s;
-  p->index = s == NULL ? 0 : s->index + 1;
+  p->next = s->fst;
+  s->size = s->size + 1;
 
-  s = p;
+  s->fst = p;
   return s;
 }
 
 stack stack_pop(stack s)
 {
-  if (!stack_is_empty(s))
-  {
-    stack p = s;
-    s = s->next;
-    free(p);
-  }
+  assert(inv_rep(s));
+  assert(!stack_is_empty(s));
+  struct stack_node *p = s->fst;
+  s->fst = (s->fst)->next;
+  s->size = s->size - 1;
+  free(p);
   return s;
 }
 
 unsigned int stack_size(stack s)
 {
-  unsigned int res;
-  res = s == NULL ? 0 : s->index + 1;
-  return res;
+  assert(inv_rep(s));
+  return s->size;
 }
 
 stack_elem stack_top(stack s)
 {
-  assert(!stack_is_empty(s));
-  stack_elem e = s->elem;
-  return e;
+  assert(inv_rep(s));
+  return (s->fst)->elem;
 }
 
 bool stack_is_empty(stack s)
 {
-  return (s == NULL);
+  assert(inv_rep(s));
+  return (s->size == 0 && s->fst == NULL);
 }
 
 stack_elem *stack_to_array(stack s)
 {
+  assert(inv_rep(s));
   unsigned int length = stack_size(s);
+  struct stack_node *p = NULL;
   stack_elem *array = NULL;
   if (length != 0)
   {
-    array = malloc(sizeof(stack_elem) * length);
+    array = calloc(length, sizeof(stack_elem));
   }
 
   if (array == NULL && length > 0)
@@ -78,28 +105,27 @@ stack_elem *stack_to_array(stack s)
     printf("Not enouht memory \n");
     exit(EXIT_FAILURE);
   }
+  p = s->fst;
   for (size_t i = length - 1; i < length; i--)
   {
-    array[i] = s->elem;
-    s = s->next;
+    array[i] = p->elem;
+    p = p->next;
   }
   return array;
 }
 
-stack_elem *stack_array_destroy(stack_elem *a)
-{
-  free(a);
-  return NULL;
-}
-
 stack stack_destroy(stack s)
 {
-  stack p = NULL;
-  while (s != NULL)
+  assert(inv_rep(s));
+  struct stack_node *p = NULL;
+  struct stack_node *q = s->fst;
+  while (q != NULL)
   {
-    p = s;
-    s = s->next;
+    p = q;
+    q = p->next;
     free(p);
+    p = NULL;
   }
+  free(s);
   return NULL;
 }

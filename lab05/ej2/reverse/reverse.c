@@ -78,6 +78,6 @@ int main(int argc, char *argv[])
 
     printf("Reversed: ");
     array_dump(new_array, length);
-    new_array = stack_array_destroy(new_array);
+    free(new_array);
     return (EXIT_SUCCESS);
 }
