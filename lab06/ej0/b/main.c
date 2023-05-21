@@ -58,8 +58,16 @@ int main(int argc, char *argv[])
 
     /*dumping the queue */
     printf("length: %u\n", queue_size(q));
+
+    /*User delete an elem*/
+    queue_user_disscard(q);
+
+    /*Print queue modified*/
+    printf("\nLa cola modificada es: \n\n");
+    printf("length: %u\n", queue_size(q));
     queue_dump(q, stdout);
 
+    /*Destroy queue*/
     q = queue_destroy(q);
 
     return EXIT_SUCCESS;

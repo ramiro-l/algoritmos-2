@@ -1,8 +1,8 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic -std=c99 -g
-SOURCES = abb.c main.c
+SOURCES = dict_helpers.c dict.c helpers.c main.c string.c
 OBJECTS = $(SOURCES:.c=.o)
-TARGET = readtree
+TARGET = dictionary
 
 .PHONY: clean
 
@@ -17,5 +17,11 @@ $(TARGET): $(OBJECTS)
 clean:
 	$(RM) $(OBJECTS) $(TARGET)
 
+run: $(TARGET)
+	./$(TARGET) 
+
 valgrind: $(TARGET)
-	valgrind --leak-check=full -s ./$(TARGET) ./input/abb_example2.in
+	valgrind --leak-check=full -s ./$(TARGET) ./input/large.dic
+
+gdb: $(TARGET)
+	gdb ./$(TARGET)

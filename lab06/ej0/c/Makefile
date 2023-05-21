@@ -1,8 +1,8 @@
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic -std=c99 -g
-SOURCES = abb.c main.c
+SOURCES = main.c queue_helpers.c queue.c
 OBJECTS = $(SOURCES:.c=.o)
-TARGET = readtree
+TARGET = queue
 
 .PHONY: clean
 
@@ -18,4 +18,4 @@ clean:
 	$(RM) $(OBJECTS) $(TARGET)
 
 valgrind: $(TARGET)
-	valgrind --leak-check=full -s ./$(TARGET) ./input/abb_example2.in
+	valgrind --leak-check=full -s ./$(TARGET) ../input/unsorted-200000.in

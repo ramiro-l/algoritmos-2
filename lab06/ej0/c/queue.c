@@ -103,6 +103,33 @@ queue queue_dequeue(queue q)
     return q;
 }
 
+queue queue_disscard(queue q, unsigned int n)
+{
+    assert(invrep(q) && n < queue_size(q));
+    struct s_node *copy_q = q->first;
+    struct s_node *killme = NULL;
+    unsigned int i = 0;
+    if (n == 0)
+    {
+        q = queue_dequeue(q);
+    }
+    else
+    {
+        while (i < n - 1)
+        {
+            copy_q = copy_q->next;
+            ++i;
+        }
+        // En este lugar estamos situados en el elemento anterior a n.
+        killme = copy_q->next;
+        copy_q->next = copy_q->next->next;
+        killme = destroy_node(killme);
+        q->size--;
+    }
+
+    return q;
+}
+
 void queue_dump(queue q, FILE *file)
 {
     file = file == NULL ? stdout : file;
