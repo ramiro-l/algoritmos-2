@@ -162,7 +162,7 @@ static dict_t dict_node_before(dict_t dict, key_t word)
 dict_t dict_empty(void)
 {
     dict_t dict = NULL;
-    assert(invrep(dict) && dict_is_empty(dict));
+    assert(invrep(dict) && dict_is_empty(dict) && dict_length(dict) == 0);
     return dict;
 }
 
@@ -186,7 +186,7 @@ dict_t dict_add(dict_t dict, key_t word, value_t def)
         dict = destroy_node(dict);
         dict = create_node(word, def);
     }
-    assert(invrep(dict) && dict_exists(dict, word));
+    assert(invrep(dict) && dict_exists(dict, word) && key_eq(def, dict_search(dict, word)));
     return dict;
 }
 
@@ -210,6 +210,7 @@ value_t dict_search(dict_t dict, key_t word)
     {
         def = dict_search(dict->right, word);
     }
+    assert((def != NULL) == dict_exists(dict, word));
     return def;
 }
 
@@ -233,6 +234,7 @@ bool dict_exists(dict_t dict, key_t word)
     {
         exists = dict_exists(dict->right, word);
     }
+    assert(invrep(dict));
     return exists;
 }
 
@@ -279,7 +281,10 @@ dict_t dict_remove(dict_t dict, key_t word)
 
 dict_t dict_remove_all(dict_t dict)
 {
-    return dict_destroy(dict);
+    assert(invrep(dict));
+    dict = dict_destroy(dict);
+    assert(invrep(dict) && dict_length(dict) == 0);
+    return dict;
 }
 
 void dict_dump(dict_t dict, FILE *file)
